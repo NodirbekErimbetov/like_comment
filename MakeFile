@@ -1,0 +1,19 @@
+# Define the target binary name
+BINARY_NAME=project
+
+# Build the binary
+build:
+	go build -o $(project) main.go
+
+# Run the Go program
+.PHONY: run
+run:
+	go run main.go
+
+# Clean up the binary
+clean:
+	rm -f $(BINARY_NAME)
+
+# Build and then run the program
+.PHONY: all
+all: build run
