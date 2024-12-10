@@ -2,7 +2,6 @@ package handler
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 	"project/config"
 	"project/helpers"
@@ -34,7 +33,6 @@ func (h *Handler) CreateUser(c *gin.Context) {
 func (h *Handler) GetByIdUser(c *gin.Context) {
 
 	var id = c.Param("id")
-	fmt.Println(id)
 
 	if !helpers.IsValidUUID(id) {
 		HandleResponse(c, http.StatusBadRequest, "it is not a uuid")
@@ -43,7 +41,6 @@ func (h *Handler) GetByIdUser(c *gin.Context) {
 	_, cancel := context.WithTimeout(context.Background(), config.CtxTimeout)
 	defer cancel()
 
-	fmt.Println(id)
 	resp, err := h.strg.Users().GetByIdUser(c.Request.Context(), &models.UserPrimaryKey{Id: id})
 	if err != nil {
 		HandleResponse(c, http.StatusBadRequest, "no rows in result set")

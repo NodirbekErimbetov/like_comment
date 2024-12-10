@@ -50,7 +50,6 @@ func (u *userRepo) CreateUser(ctx context.Context, req *models.CreateUser) (*mod
 func (u *userRepo) GetByIdUser(ctx context.Context, req *models.UserPrimaryKey) (*models.User, error) {
 
 	var (
-		user  models.User
 		query = `
 		SELECT
 			"id",
@@ -64,22 +63,38 @@ func (u *userRepo) GetByIdUser(ctx context.Context, req *models.UserPrimaryKey) 
 		WHERE "id" = $1
 		`
 	)
-	fmt.Println(query)
+	var (
+		id         sql.NullString
+		first_name sql.NullString
+		last_name  sql.NullString
+		email      sql.NullString
+		password   sql.NullString
+		created_at sql.NullString
+		updated_at sql.NullString
+	)
 
 	err := u.db.QueryRow(ctx, query, req.Id).Scan(
-		&user.Id,
-		&user.FirstName,
-		&user.LastName,
-		&user.Email,
-		&user.Password,
-		&user.CreatedAt,
-		&user.UpdatedAt,
+		&id,
+		&first_name,
+		&last_name,
+		&email,
+		&password,
+		&created_at,
+		&updated_at,
 	)
 	if err != nil {
 		return nil, err
 	}
 
-	return &user, nil
+	return &models.User{
+		Id:        id.String,
+		FirstName: first_name.String,
+		LastName:  last_name.String,
+		Email:     email.String,
+		Password:  password.String,
+		CreatedAt: created_at.String,
+		UpdatedAt: updated_at.String,
+	}, nil
 }
 
 func (u *userRepo) GetListUser(ctx context.Context, req *models.GetListUserRequest) (*models.GetListUserResponse, error) {
