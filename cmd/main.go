@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"project/api"
 	"project/config"
@@ -27,6 +26,5 @@ func main() {
 		panic("Listent and service panic:" + err.Error())
 
 	}
-	fmt.Println("Hello first commit")
 
 }
