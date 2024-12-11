@@ -13,6 +13,7 @@ import (
 type Store struct {
 	db   *pgxpool.Pool
 	user storage.UsersRepoI
+	post storage.PostsRepoI
 }
 
 func NewConnectionPostgres(cfg *config.Config) (storage.StorageI, error) {
@@ -43,4 +44,11 @@ func (s *Store) Users() storage.UsersRepoI {
 		s.user = NewUsersRepo(s.db)
 	}
 	return s.user
+}
+
+func (s *Store) Posts() storage.PostsRepoI {
+	if s.post == nil {
+		s.post = NewPostRepo(s.db)
+	}
+	return s.post
 }
