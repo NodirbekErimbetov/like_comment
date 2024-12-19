@@ -10,27 +10,25 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (h *Handler) CreateUser(c *gin.Context) {
-	var createUser models.CreateUser
-
-	err := c.ShouldBindJSON(&createUser)
+func (h *Handler) CreatePost(c *gin.Context) {
+	var createPost models.CreatePost
+	err := c.ShouldBindJSON(&createPost)
 	if err != nil {
-		HandleResponse(c, 400, "ShouldBindJSON err:"+err.Error())
+		HandleResponse(c, 400, "ShouldBindJSON Error "+err.Error())
 		return
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), config.CtxTimeout)
 	defer cancel()
-	resp, err := h.strg.Users().CreateUser(ctx, &createUser)
+	resp, err := h.strg.Posts().CreatePost(ctx, &createPost)
 	if err != nil {
 		HandleResponse(c, http.StatusInternalServerError, err)
 		return
 	}
-
 	HandleResponse(c, http.StatusCreated, resp)
 }
 
-func (h *Handler) GetByIdUser(c *gin.Context) {
+func (h *Handler) GetByIdPost(c *gin.Context) {
 
 	var id = c.Param("id")
 
@@ -41,7 +39,7 @@ func (h *Handler) GetByIdUser(c *gin.Context) {
 	_, cancel := context.WithTimeout(context.Background(), config.CtxTimeout)
 	defer cancel()
 
-	resp, err := h.strg.Users().GetByIdUser(c.Request.Context(), &models.UserPrimaryKey{Id: id})
+	resp, err := h.strg.Posts().GetByIdPost(c.Request.Context(), &models.PostPrimaryKey{Id: id})
 	if err != nil {
 		HandleResponse(c, http.StatusBadRequest, "no rows in result set")
 		return
@@ -49,16 +47,14 @@ func (h *Handler) GetByIdUser(c *gin.Context) {
 	HandleResponse(c, http.StatusOK, resp)
 
 }
-
-func (h *Handler) GetListUser(c *gin.Context) {
-
+func (h *Handler) GetListPost(c *gin.Context) {
 	limit, err := getIntegerOrDefaultValue(c.Query(" limit"), 10)
 	if err != nil {
 		HandleResponse(c, http.StatusBadRequest, "invalid query limit")
 		return
 	}
 
-	offset, err := getIntegerOrDefaultValue(c.Query(" offset"), 0)
+	page_limit, err := getIntegerOrDefaultValue(c.Query(" offset"), 0)
 	if err != nil {
 		HandleResponse(c, http.StatusBadRequest, "invalid query offset")
 		return
@@ -69,8 +65,8 @@ func (h *Handler) GetListUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(context.Background(), config.CtxTimeout)
 	defer cancel()
 
-	resp, err := h.strg.Users().GetListUser(ctx, &models.GetListUserRequest{
-		Page:   offset,
+	resp, err := h.strg.Posts().GetListPost(ctx, &models.GetListPostRequest{
+		Page:   page_limit,
 		Limit:  limit,
 		Search: search,
 	})
@@ -80,37 +76,9 @@ func (h *Handler) GetListUser(c *gin.Context) {
 	}
 
 	HandleResponse(c, http.StatusOK, resp)
-
 }
 
-func (h *Handler) UpdateUser(c *gin.Context) {
-	var updateuser models.UpdateUser
-
-	err := c.ShouldBindJSON(&updateuser)
-	if err != nil {
-		HandleResponse(c, http.StatusBadRequest, err.Error())
-		return
-	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), config.CtxTimeout)
-	defer cancel()
-
-	rows, err := h.strg.Users().UpdateUser(ctx, &models.UpdateUser{
-		Id:        updateuser.Id,
-		FirstName: updateuser.FirstName,
-		LastName:  updateuser.LastName,
-		Password:  updateuser.Password,
-	})
-
-	if err != nil {
-		HandleResponse(c, http.StatusInternalServerError, err)
-		return
-	}
-
-	HandleResponse(c, http.StatusOK, rows)
-}
-
-func (h *Handler) DeleteUser(c *gin.Context) {
+func (h *Handler) DeletePost(c *gin.Context) {
 	var id = c.Param("id")
 	if !helpers.IsValidUUID(id) {
 		HandleResponse(c, http.StatusBadRequest, "id is not uuid")
@@ -120,7 +88,7 @@ func (h *Handler) DeleteUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(context.Background(), config.CtxTimeout)
 	defer cancel()
 
-	err := h.strg.Users().DeleteUser(ctx, &models.UserPrimaryKey{Id: id})
+	err := h.strg.Posts().DeletePost(ctx, &models.PostPrimaryKey{Id: id})
 	if err != nil {
 		HandleResponse(c, http.StatusBadRequest, err)
 		return

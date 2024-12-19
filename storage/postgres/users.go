@@ -101,9 +101,9 @@ func (u *userRepo) GetListUser(ctx context.Context, req *models.GetListUserReque
 
 	var (
 		resp       models.GetListUserResponse
-		where      = "WHERE TRUE"
-		page_limit = "OFFSET 1 "
-		limit      = "LIMIT 10 "
+		where      = " WHERE TRUE"
+		page_limit = " OFFSET 0"
+		limit      = " LIMIT 10"
 		sort       = " ORDER BY created_at DESC"
 	)
 	if req.Page > 0 {
@@ -135,7 +135,7 @@ func (u *userRepo) GetListUser(ctx context.Context, req *models.GetListUserReque
 	if err != nil {
 		return nil, err
 	}
-
+	fmt.Println(query)
 	for rows.Next() {
 		var (
 			Id        sql.NullString

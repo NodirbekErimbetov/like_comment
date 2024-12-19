@@ -17,4 +17,10 @@ func SetUpApi(r *gin.Engine, cfg *config.Config, strg storage.StorageI) {
 	r.PUT("/users", handler.UpdateUser)
 	r.DELETE("/users/:id", handler.DeleteUser)
 
+	r.POST("/post", handler.CreatePost)
+	r.GET("/post/:id", handler.GetByIdPost)
+	r.GET("/post", handler.GetListPost)
+	r.DELETE("/post/:id", handler.DeletePost)
+
+
 }

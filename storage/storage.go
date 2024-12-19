@@ -22,6 +22,5 @@ type PostsRepoI interface{
 	CreatePost(ctx context.Context, req *models.CreatePost) (*models.Post, error)
 	GetByIdPost(ctx context.Context, req *models.PostPrimaryKey) (*models.Post, error)
 	GetListPost(ctx context.Context, req *models.GetListPostRequest) (*models.GetListPostResponse, error)
-	UpdatePost(ctx context.Context, req *models.UpdatePost) (int64, error)
 	DeletePost(ctx context.Context, req *models.PostPrimaryKey) error
 }

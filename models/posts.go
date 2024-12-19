@@ -8,16 +8,14 @@ type CreatePost struct {
 	Id        string `json:"id"`
 	Title     string `json:"title"`
 	Body      string `json:"body"`
-	Published bool   `json:"published"`
-	UserId    string `json:"user"`
+	UserId    string `json:"user_id"`
 }
 
 type Post struct {
 	Id        string `json:"id"`
 	Title     string `json:"title"`
 	Body      string `json:"body"`
-	Published bool   `json:"published"`
-	UserId    string `json:"user"`
+	UserId    string `json:"user_id"`
 	CreatedAt string `json:"created_at"`
 	UpdatedAt string `json:"updated_at"`
 }
@@ -36,5 +34,5 @@ type GetListPostRequest struct {
 
 type GetListPostResponse struct {
 	Count int64   `json:"count"`
-	Posts  []*Post `json:"post"`
+	Posts  []*Post `json:"posts"`
 }
