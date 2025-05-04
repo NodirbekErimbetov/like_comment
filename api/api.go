@@ -5,8 +5,9 @@ import (
 	"minimedium/config"
 	"minimedium/storage"
 
-	"github.com/gin-gonic/gin"
 	_ "minimedium/api/docs"
+
+	"github.com/gin-gonic/gin"
 
 	swaggerfiles "github.com/swaggo/files"     // swagger embed files
 	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
@@ -24,14 +25,14 @@ func SetUpApi(r *gin.Engine, cfg *config.Config, strg storage.StorageI) {
 	r.POST("/post", handler.CreatePost)
 	r.GET("/post/:id", handler.GetByIdPost)
 	r.GET("/posts", handler.GetListPost)
-	r.PUT("/post",handler.UpdatePost)
+	r.PUT("/post", handler.UpdatePost)
 	r.DELETE("/post/:id", handler.DeletePost)
 
 	r.POST("/signup", handler.SignUp)
 	r.GET("/signin", handler.SignIn)
 
 	r.POST("/follow", handler.Follow)
-	r.POST("/like", handler.CreateLike)
+
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 }

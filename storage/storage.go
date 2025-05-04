@@ -10,7 +10,6 @@ type StorageI interface {
 	Posts() PostsRepoI
 	Login() LoginRepoI
 	Follow() FollowRepoI
-	Like() LikeRepoI
 }
 
 type UsersRepoI interface {
@@ -33,9 +32,6 @@ type LoginRepoI interface {
 }
 type FollowRepoI interface {
 	Follow(ctx context.Context, req *models.Follow) error
-	// FollowList(ctx context.Context,req *models)
+
 }
 
-type LikeRepoI interface {
-	Like(ctx context.Context, req *models.Like) (int64, error)
-}

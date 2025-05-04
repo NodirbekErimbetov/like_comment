@@ -63,10 +63,9 @@ func (u *userRepo) GetByIdUser(ctx context.Context, req *models.UserPrimaryKey) 
 			"created_at",
 			"updated_at"
 		FROM "users"
-		WHERE id = $1 OR user_name = $1
+		WHERE id = $1 
 		`
 	)
-	fmt.Println(query)
 	var (
 		id         sql.NullString
 		name       sql.NullString

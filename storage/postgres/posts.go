@@ -111,7 +111,7 @@ func (p *postRepo) GetListPost(ctx context.Context, req *models.GetListPostReque
 		limit = fmt.Sprintf(" LIMIT %d ", req.Limit)
 	}
 	if len(req.Search) > 0 {
-		where += " AND body ILIKE" + " '%" + req.Search + "%'"
+		where += " AND title ILIKE" + " '%" + req.Search + "%'"
 	}
 
 	var query = `

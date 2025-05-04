@@ -179,50 +179,6 @@ paths:
       summary: Follow
       tags:
       - Follow
-  /like:
-    post:
-      consumes:
-      - application/json
-      description: Like
-      operationId: like
-      parameters:
-      - description: post_id
-        in: path
-        name: post_id
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: Success
-          schema:
-            allOf:
-            - $ref: '#/definitions/handler.Response'
-            - properties:
-                data:
-                  type: string
-              type: object
-        "400":
-          description: Invalid Argument
-          schema:
-            allOf:
-            - $ref: '#/definitions/handler.Response'
-            - properties:
-                data:
-                  type: string
-              type: object
-        "500":
-          description: Server Error
-          schema:
-            allOf:
-            - $ref: '#/definitions/handler.Response'
-            - properties:
-                data:
-                  type: string
-              type: object
-      summary: Like
-      tags:
-      - Like
   /post:
     post:
       consumes:
@@ -418,6 +374,10 @@ paths:
         in: query
         name: offset
         type: number
+      - description: search
+        in: query
+        name: search
+        type: string
       produces:
       - application/json
       responses:

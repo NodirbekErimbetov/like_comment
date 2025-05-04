@@ -81,6 +81,7 @@ func (h *Handler) GetByIdPost(c *gin.Context) {
 // @Produce json
 // @Param limit query number false "limit"
 // @Param offset query number false "offset"
+// @Param search query string false "search"
 // @Success 200 {object} Response{data=models.GetListPostResponse} "GetListPostResponseBody"
 // @Response 400 {object} Response{data=string} "Invalid Argument"
 // @Failure 500 {object} Response{data=string} "Server Error"

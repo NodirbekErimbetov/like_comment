@@ -16,7 +16,7 @@ type Store struct {
 	post storage.PostsRepoI
 	sign storage.LoginRepoI
 	follow storage.FollowRepoI
-	like storage.LikeRepoI
+
 }
 
 func NewConnectionPostgres(cfg *config.Config) (storage.StorageI, error) {
@@ -70,9 +70,4 @@ func (s *Store) Follow() storage.FollowRepoI{
 	return s.follow
 }
 
-func (s *Store) Like() storage.LikeRepoI {
-	if s.like == nil {
-		s.like = NewLikeRepo(s.db)
-	}
-	return s.like
-}
+

@@ -18,7 +18,7 @@ func Load() Config {
 	config.PostgresUser = "nodirbek"
 	config.PostgresHost = "localhost"
 	config.ServiceHost = "localhost"
-	config.ServiceHTTPPort = ":8080"
+	config.ServiceHTTPPort = ":8081"
 
 	return config
 }
