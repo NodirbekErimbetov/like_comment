@@ -1,0 +1,776 @@
+definitions:
+  handler.Response:
+    properties:
+      data: {}
+      description:
+        type: string
+      status:
+        type: integer
+    type: object
+  models.CreatePost:
+    properties:
+      body:
+        type: string
+      title:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.CreateUser:
+    properties:
+      bio:
+        type: string
+      media_url:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      user_name:
+        type: string
+    type: object
+  models.GetListPostResponse:
+    properties:
+      count:
+        type: integer
+      posts:
+        items:
+          $ref: '#/definitions/models.Post'
+        type: array
+    type: object
+  models.GetListUserResponse:
+    properties:
+      count:
+        type: integer
+      users:
+        items:
+          $ref: '#/definitions/models.User'
+        type: array
+    type: object
+  models.Post:
+    properties:
+      body:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      title:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.PostPrimaryKey:
+    properties:
+      id:
+        type: string
+    type: object
+  models.SignUp:
+    properties:
+      bio:
+        type: string
+      media_url:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      user_name:
+        type: string
+    type: object
+  models.UpdatePost:
+    properties:
+      body:
+        type: string
+      id:
+        type: string
+      title:
+        type: string
+    type: object
+  models.UpdateUser:
+    properties:
+      bio:
+        type: string
+      id:
+        type: string
+      media_url:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      user_name:
+        type: string
+    type: object
+  models.User:
+    properties:
+      bio:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      media_url:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      updated_at:
+        type: string
+      user_name:
+        type: string
+    type: object
+  models.UserPrimaryKey:
+    properties:
+      id:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /follow:
+    post:
+      consumes:
+      - application/json
+      description: Follow
+      operationId: follow
+      parameters:
+      - description: follower_id
+        in: query
+        name: FollowerId
+        type: string
+      - description: followed_id
+        in: query
+        name: FollowedId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Follow
+      tags:
+      - Follow
+  /like:
+    post:
+      consumes:
+      - application/json
+      description: Like
+      operationId: like
+      parameters:
+      - description: post_id
+        in: path
+        name: post_id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Like
+      tags:
+      - Like
+  /post:
+    post:
+      consumes:
+      - application/json
+      description: Create Post
+      operationId: create_post
+      parameters:
+      - description: CreatePostRequestBody
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreatePost'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: PostBody
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Post'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Create Post
+      tags:
+      - Post
+    put:
+      consumes:
+      - application/json
+      description: PostUpdate
+      operationId: update_post
+      parameters:
+      - description: UpdatePostRequestBody
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdatePost'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: GetListPostResponseBody
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.UpdatePost'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: PostUpdate
+      tags:
+      - Post
+  /post/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: PostDelete
+      operationId: delete_post
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.PostPrimaryKey'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: PostDelete
+      tags:
+      - Post
+    get:
+      consumes:
+      - application/json
+      description: Get By Id Post
+      operationId: get_post
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: GetListPostResponseBody
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Post'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Get By Id Post
+      tags:
+      - Post
+  /posts:
+    get:
+      consumes:
+      - application/json
+      description: Get List Post
+      operationId: get_list_post
+      parameters:
+      - description: limit
+        in: query
+        name: limit
+        type: number
+      - description: offset
+        in: query
+        name: offset
+        type: number
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: GetListPostResponseBody
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.GetListPostResponse'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Get List Post
+      tags:
+      - Post
+  /signin:
+    get:
+      consumes:
+      - application/json
+      description: Sign In
+      operationId: sign_in
+      parameters:
+      - description: user_name
+        in: query
+        name: user_name
+        type: string
+      - description: password
+        in: query
+        name: password
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Sign In
+      tags:
+      - SignUp
+  /signup:
+    post:
+      consumes:
+      - application/json
+      description: SignUp
+      operationId: sign_up
+      parameters:
+      - description: SignUpRequestBody
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/models.SignUp'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: SignUp
+      tags:
+      - SignUp
+  /user:
+    post:
+      consumes:
+      - application/json
+      description: Create User
+      operationId: create_user
+      parameters:
+      - description: CreateUserRequestBody
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: UserBody
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.User'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Create User
+      tags:
+      - User
+    put:
+      consumes:
+      - application/json
+      description: UserUpdate
+      operationId: update_user
+      parameters:
+      - description: UpdateUserRequestBody
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: GetListUserResponseBody
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.UpdateUser'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: UserUpdate
+      tags:
+      - User
+  /user/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: UserDelete
+      operationId: delete_user
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.UserPrimaryKey'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: UserDelete
+      tags:
+      - User
+    get:
+      consumes:
+      - application/json
+      description: Get By Id User
+      operationId: get_user
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: GetListUserResponseBody
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.User'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Get By Id User
+      tags:
+      - User
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: Get List User
+      operationId: get_list_user
+      parameters:
+      - description: limit
+        in: query
+        name: limit
+        type: number
+      - description: offset
+        in: query
+        name: offset
+        type: number
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: GetListUserResponseBody
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.GetListUserResponse'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Get List User
+      tags:
+      - User
+swagger: "2.0"

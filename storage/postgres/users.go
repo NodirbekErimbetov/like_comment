@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"project/models"
+	"minimedium/models"
 
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v4/pgxpool"
@@ -25,20 +25,22 @@ func (u *userRepo) CreateUser(ctx context.Context, req *models.CreateUser) (*mod
 		query  = `
 		INSERT INTO "users"(
 					"id",
-					"first_name",
-					"last_name",
-					"email",
+					"name",
+					"user_name",
+					"bio",
+					"media_url",
 					"password",
 					"updated_at"		
-					) VALUES ($1, $2, $3, $4, $5, NOW())
+					) VALUES ($1, $2, $3, $4, $5,$6, NOW())
 				`
 	)
 
 	_, err := u.db.Exec(ctx, query,
 		userId,
-		req.FirstName,
-		req.LastName,
-		req.Email,
+		req.Name,
+		req.UserName,
+		req.Bio,
+		req.MediaUrl,
 		req.Password,
 	)
 
@@ -53,21 +55,24 @@ func (u *userRepo) GetByIdUser(ctx context.Context, req *models.UserPrimaryKey) 
 		query = `
 		SELECT
 			"id",
-			"first_name",	
-			"last_name",	
-			"email",	
+			"name",	
+			"user_name",	
+			"bio",	
+			"media_url",	
 			"password",	
-			"created_at",	
+			"created_at",
 			"updated_at"
 		FROM "users"
-		WHERE "id" = $1
+		WHERE id = $1 OR user_name = $1
 		`
 	)
+	fmt.Println(query)
 	var (
 		id         sql.NullString
-		first_name sql.NullString
-		last_name  sql.NullString
-		email      sql.NullString
+		name       sql.NullString
+		user_name  sql.NullString
+		bio        sql.NullString
+		media_url  sql.NullString
 		password   sql.NullString
 		created_at sql.NullString
 		updated_at sql.NullString
@@ -75,9 +80,10 @@ func (u *userRepo) GetByIdUser(ctx context.Context, req *models.UserPrimaryKey) 
 
 	err := u.db.QueryRow(ctx, query, req.Id).Scan(
 		&id,
-		&first_name,
-		&last_name,
-		&email,
+		&name,
+		&user_name,
+		&bio,
+		&media_url,
 		&password,
 		&created_at,
 		&updated_at,
@@ -88,9 +94,10 @@ func (u *userRepo) GetByIdUser(ctx context.Context, req *models.UserPrimaryKey) 
 
 	return &models.User{
 		Id:        id.String,
-		FirstName: first_name.String,
-		LastName:  last_name.String,
-		Email:     email.String,
+		Name:      name.String,
+		UserName:  user_name.String,
+		Bio:       bio.String,
+		MediaUrl:  media_url.String,
 		Password:  password.String,
 		CreatedAt: created_at.String,
 		UpdatedAt: updated_at.String,
@@ -120,14 +127,15 @@ func (u *userRepo) GetListUser(ctx context.Context, req *models.GetListUserReque
 
 	var query = `
 	SELECT
-		COUNT(*) OVER(),
-		"id",
-		"first_name",
-		"last_name",
-		"email",
-		"password",
-		"created_at",
-		"updated_at"
+			COUNT(*) OVER(),
+			"id",
+			"name",	
+			"user_name",	
+			"bio",	
+			"media_url",	
+			"password",	
+			"created_at",
+			"updated_at"
 	FROM users
 `
 	query += where + sort + page_limit + limit
@@ -135,40 +143,42 @@ func (u *userRepo) GetListUser(ctx context.Context, req *models.GetListUserReque
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(query)
 	for rows.Next() {
 		var (
-			Id        sql.NullString
-			FirstName sql.NullString
-			LastName  sql.NullString
-			Email     sql.NullString
-			Password  sql.NullString
-			CreatedAt sql.NullString
-			UpdatedAt sql.NullString
+			id         sql.NullString
+			name       sql.NullString
+			user_name  sql.NullString
+			bio        sql.NullString
+			media_url  sql.NullString
+			password   sql.NullString
+			created_at sql.NullString
+			updated_at sql.NullString
 		)
 
 		err = rows.Scan(
 			&resp.Count,
-			&Id,
-			&FirstName,
-			&LastName,
-			&Email,
-			&Password,
-			&CreatedAt,
-			&UpdatedAt,
+			&id,
+			&name,
+			&user_name,
+			&bio,
+			&media_url,
+			&password,
+			&created_at,
+			&updated_at,
 		)
 		if err != nil {
 			return nil, err
 		}
 
 		resp.Users = append(resp.Users, &models.User{
-			Id:        Id.String,
-			FirstName: FirstName.String,
-			LastName:  LastName.String,
-			Email:     Email.String,
-			Password:  Password.String,
-			CreatedAt: CreatedAt.String,
-			UpdatedAt: UpdatedAt.String,
+			Id:        id.String,
+			Name:      name.String,
+			UserName:  user_name.String,
+			Bio:       bio.String,
+			MediaUrl:  media_url.String,
+			Password:  password.String,
+			CreatedAt: created_at.String,
+			UpdatedAt: updated_at.String,
 		})
 	}
 	return &resp, nil
@@ -178,16 +188,20 @@ func (u *userRepo) UpdateUser(ctx context.Context, req *models.UpdateUser) (int6
 	query := `	
 	UPDATE users
 		SET 
-			first_name =$2,
-			last_name =$3,
-			password =$4,
+			name =$2,
+			user_name =$3,
+			bio= $4,
+			media_url = $5,
+			password =$6,
 			updated_at = NOW()
 	WHERE id = $1
 	`
 	result, err := u.db.Exec(ctx, query,
 		req.Id,
-		req.FirstName,
-		req.LastName,
+		req.Name,
+		req.UserName,
+		req.Bio,
+		req.MediaUrl,
 		req.Password,
 	)
 

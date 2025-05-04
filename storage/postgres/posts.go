@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"project/models"
+	"minimedium/models"
 
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v4/pgxpool"
@@ -26,7 +26,7 @@ func (p *postRepo) CreatePost(ctx context.Context, req *models.CreatePost) (*mod
 
 		query = `
 		
-		INSERT INTO "post" (
+		INSERT INTO "posts" (
 			"id",
 			"title",
 			"body",
@@ -35,7 +35,7 @@ func (p *postRepo) CreatePost(ctx context.Context, req *models.CreatePost) (*mod
 		) VALUES ($1, $2, $3, $4, NOW())
 		`
 	)
-	_, err := p.db.Exec(ctx,query,
+	_, err := p.db.Exec(ctx, query,
 		postId,
 		req.Title,
 		req.Body,
@@ -60,7 +60,7 @@ func (p *postRepo) GetByIdPost(ctx context.Context, req *models.PostPrimaryKey) 
 			"user_id",
 			"created_at",
 			"updated_at"
-		FROM post
+		FROM posts
 		WHERE "id" = $1
 		`
 	)
@@ -123,7 +123,7 @@ func (p *postRepo) GetListPost(ctx context.Context, req *models.GetListPostReque
 			"user_id",
 			"created_at",
 			"updated_at"
-		FROM post	`
+		FROM posts	`
 
 	query += where + sort + page_limit + limit
 	rows, err := p.db.Query(ctx, query)
@@ -166,7 +166,34 @@ func (p *postRepo) GetListPost(ctx context.Context, req *models.GetListPostReque
 	return &resp, nil
 }
 
+func (p *postRepo) UpdatePost(ctx context.Context, req *models.UpdatePost) (int64, error) {
+
+	query := `
+	
+		UPDATE posts
+			SET 
+				title = $2,
+				body = $3,
+				updated_at = NOW()
+			WHERE id = $1
+			
+	`
+	result, err := p.db.Exec(ctx, query,
+		req.Id,
+		req.Title,
+		req.Body,
+	)
+	if err != nil {
+		return 0, err
+	}
+	rowsAffected := result.RowsAffected()
+	if err != nil {
+		return 0, err
+	}
+	return rowsAffected, nil
+}
+
 func (p *postRepo) DeletePost(ctx context.Context, req *models.PostPrimaryKey) error {
-	_, err := p.db.Exec(ctx, "DELETE FROM post WHERE id = $1", req.Id)
+	_, err := p.db.Exec(ctx, "DELETE FROM posts WHERE id = $1", req.Id)
 	return err
 }

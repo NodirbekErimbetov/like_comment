@@ -5,17 +5,19 @@ type UserPrimaryKey struct {
 }
 
 type CreateUser struct {
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	Email     string `json:"email"`
-	Password  string `json:"password"`
+	Name     string `json:"name"`
+	UserName string `json:"user_name"`
+	Bio      string `json:"bio"`
+	MediaUrl string `json:"media_url"`
+	Password string `json:"password"`
 }
 
 type User struct {
 	Id        string `json:"id"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	Email     string `json:"email"`
+	Name      string `json:"name"`
+	UserName  string `json:"user_name"`
+	Bio       string `json:"bio"`
+	MediaUrl  string `json:"media_url"`
 	Password  string `json:"password"`
 	CreatedAt string `json:"created_at"`
 	UpdatedAt string `json:"updated_at"`
@@ -23,8 +25,10 @@ type User struct {
 
 type UpdateUser struct {
 	Id        string `json:"id"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
+	Name      string `json:"name"`
+	UserName  string `json:"user_name"`
+	Bio       string `json:"bio"`
+	MediaUrl  string `json:"media_url"`
 	Password  string `json:"password"`
 }
 

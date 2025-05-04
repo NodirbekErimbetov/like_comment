@@ -5,17 +5,16 @@ type PostPrimaryKey struct {
 }
 
 type CreatePost struct {
-	Id        string `json:"id"`
+	UserId    string `json:"user_id"`
 	Title     string `json:"title"`
 	Body      string `json:"body"`
-	UserId    string `json:"user_id"`
 }
 
 type Post struct {
 	Id        string `json:"id"`
+	UserId    string `json:"user_id"`
 	Title     string `json:"title"`
 	Body      string `json:"body"`
-	UserId    string `json:"user_id"`
 	CreatedAt string `json:"created_at"`
 	UpdatedAt string `json:"updated_at"`
 }
@@ -24,6 +23,7 @@ type UpdatePost struct {
 	Id    string `json:"id"`
 	Title string `json:"title"`
 	Body  string `json:"body"`
+
 }
 
 type GetListPostRequest struct {

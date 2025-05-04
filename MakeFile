@@ -1,9 +1,9 @@
 # Define the target binary name
-BINARY_NAME=project
+BINARY_NAME=minimedium
 
 # Build the binary
 build:
-	go build -o $(project) main.go
+	go build -o $(minimedium) main.go
 
 # Run the Go program
 .PHONY: run
@@ -17,3 +17,16 @@ clean:
 # Build and then run the program
 .PHONY: all
 all: build run
+
+gen-swag:
+	swag init -g api/api.go -o api/docs
+
+run:
+	go run cmd/main.go
+
+mg-up:
+	migrate -path migrations/ -database "postgresql://nodirbek:0021@localhost:5432/minimedium" -verbose up
+
+
+mg-down:
+	migrate -path migrations/ -database "postgresql://nodirbek:0021@localhost:5432/minimedium" -verbose down

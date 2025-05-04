@@ -2,8 +2,8 @@ package handler
 
 import (
 	"log"
-	"project/config"
-	"project/storage"
+	"minimedium/config"
+	"minimedium/storage"
 	"strconv"
 
 	"github.com/gin-gonic/gin"

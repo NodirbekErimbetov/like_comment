@@ -2,9 +2,9 @@ package main
 
 import (
 	"log"
-	"project/api"
-	"project/config"
-	"project/storage/postgres"
+	"minimedium/api"
+	"minimedium/config"
+	"minimedium/storage/postgres"
 
 	"github.com/gin-gonic/gin"
 )

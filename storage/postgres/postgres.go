@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"project/config"
-	"project/storage"
+	"minimedium/config"
+	"minimedium/storage"
 
 	"github.com/jackc/pgx/v4/pgxpool"
 )
@@ -14,6 +14,9 @@ type Store struct {
 	db   *pgxpool.Pool
 	user storage.UsersRepoI
 	post storage.PostsRepoI
+	sign storage.LoginRepoI
+	follow storage.FollowRepoI
+	like storage.LikeRepoI
 }
 
 func NewConnectionPostgres(cfg *config.Config) (storage.StorageI, error) {
@@ -51,4 +54,25 @@ func (s *Store) Posts() storage.PostsRepoI {
 		s.post = NewPostRepo(s.db)
 	}
 	return s.post
+}
+
+func (s *Store) Login() storage.LoginRepoI {
+	if s.sign == nil {
+		s.sign = NewSignRepo(s.db)
+	}
+	return s.sign
+}
+
+func (s *Store) Follow() storage.FollowRepoI{
+	if s.follow == nil{
+		s.follow = NewFollowRepo(s.db)
+	}
+	return s.follow
+}
+
+func (s *Store) Like() storage.LikeRepoI {
+	if s.like == nil {
+		s.like = NewLikeRepo(s.db)
+	}
+	return s.like
 }

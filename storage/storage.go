@@ -2,12 +2,15 @@ package storage
 
 import (
 	"context"
-	"project/models"
+	"minimedium/models"
 )
 
 type StorageI interface {
 	Users() UsersRepoI
 	Posts() PostsRepoI
+	Login() LoginRepoI
+	Follow() FollowRepoI
+	Like() LikeRepoI
 }
 
 type UsersRepoI interface {
@@ -18,9 +21,21 @@ type UsersRepoI interface {
 	DeleteUser(ctx context.Context, req *models.UserPrimaryKey) error
 }
 
-type PostsRepoI interface{
+type PostsRepoI interface {
 	CreatePost(ctx context.Context, req *models.CreatePost) (*models.Post, error)
 	GetByIdPost(ctx context.Context, req *models.PostPrimaryKey) (*models.Post, error)
+	UpdatePost(ctx context.Context, req *models.UpdatePost) (int64, error)
 	GetListPost(ctx context.Context, req *models.GetListPostRequest) (*models.GetListPostResponse, error)
 	DeletePost(ctx context.Context, req *models.PostPrimaryKey) error
+}
+type LoginRepoI interface {
+	SignIn(ctx context.Context, req *models.SignIn) (*models.SignInResponse, error)
+}
+type FollowRepoI interface {
+	Follow(ctx context.Context, req *models.Follow) error
+	// FollowList(ctx context.Context,req *models)
+}
+
+type LikeRepoI interface {
+	Like(ctx context.Context, req *models.Like) (int64, error)
 }

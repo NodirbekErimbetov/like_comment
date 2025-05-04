@@ -13,7 +13,7 @@ type Config struct {
 func Load() Config {
 	var config Config
 	config.PostgresPort = "5432"
-	config.PostgresDatabase = "project"
+	config.PostgresDatabase = "minimedium"
 	config.PostgresPassword = "0021"
 	config.PostgresUser = "nodirbek"
 	config.PostgresHost = "localhost"

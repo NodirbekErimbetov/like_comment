@@ -1,0 +1,1364 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/follow": {
+            "post": {
+                "description": "Follow",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Follow"
+                ],
+                "summary": "Follow",
+                "operationId": "follow",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "follower_id",
+                        "name": "FollowerId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "followed_id",
+                        "name": "FollowedId",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Argument",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/like": {
+            "post": {
+                "description": "Like",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Like"
+                ],
+                "summary": "Like",
+                "operationId": "like",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "post_id",
+                        "name": "post_id",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Argument",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/post": {
+            "put": {
+                "description": "PostUpdate",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Post"
+                ],
+                "summary": "PostUpdate",
+                "operationId": "update_post",
+                "parameters": [
+                    {
+                        "description": "UpdatePostRequestBody",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UpdatePost"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "GetListPostResponseBody",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/models.UpdatePost"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Argument",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create Post",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Create Post",
+                "operationId": "create_post",
+                "parameters": [
+                    {
+                        "description": "CreatePostRequestBody",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CreatePost"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "PostBody",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/models.Post"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Argument",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/post/{id}": {
+            "get": {
+                "description": "Get By Id Post",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Get By Id Post",
+                "operationId": "get_post",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "GetListPostResponseBody",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/models.Post"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Argument",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "PostDelete",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Post"
+                ],
+                "summary": "PostDelete",
+                "operationId": "delete_post",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/models.PostPrimaryKey"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Argument",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/posts": {
+            "get": {
+                "description": "Get List Post",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Get List Post",
+                "operationId": "get_list_post",
+                "parameters": [
+                    {
+                        "type": "number",
+                        "description": "limit",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "description": "offset",
+                        "name": "offset",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "GetListPostResponseBody",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/models.GetListPostResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Argument",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/signin": {
+            "get": {
+                "description": "Sign In",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SignUp"
+                ],
+                "summary": "Sign In",
+                "operationId": "sign_in",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "user_name",
+                        "name": "user_name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "password",
+                        "name": "password",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Argument",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/signup": {
+            "post": {
+                "description": "SignUp",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SignUp"
+                ],
+                "summary": "SignUp",
+                "operationId": "sign_up",
+                "parameters": [
+                    {
+                        "description": "SignUpRequestBody",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SignUp"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Argument",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/user": {
+            "put": {
+                "description": "UserUpdate",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "UserUpdate",
+                "operationId": "update_user",
+                "parameters": [
+                    {
+                        "description": "UpdateUserRequestBody",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UpdateUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "GetListUserResponseBody",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/models.UpdateUser"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Argument",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create User",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Create User",
+                "operationId": "create_user",
+                "parameters": [
+                    {
+                        "description": "CreateUserRequestBody",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CreateUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "UserBody",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/models.User"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Argument",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/user/{id}": {
+            "get": {
+                "description": "Get By Id User",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get By Id User",
+                "operationId": "get_user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "GetListUserResponseBody",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/models.User"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Argument",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "UserDelete",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "UserDelete",
+                "operationId": "delete_user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/models.UserPrimaryKey"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Argument",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "description": "Get List User",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get List User",
+                "operationId": "get_list_user",
+                "parameters": [
+                    {
+                        "type": "number",
+                        "description": "limit",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "description": "offset",
+                        "name": "offset",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "GetListUserResponseBody",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/models.GetListUserResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Argument",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/handler.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "handler.Response": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "description": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.CreatePost": {
+            "type": "object",
+            "properties": {
+                "body": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.CreateUser": {
+            "type": "object",
+            "properties": {
+                "bio": {
+                    "type": "string"
+                },
+                "media_url": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "user_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.GetListPostResponse": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer"
+                },
+                "posts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Post"
+                    }
+                }
+            }
+        },
+        "models.GetListUserResponse": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer"
+                },
+                "users": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.User"
+                    }
+                }
+            }
+        },
+        "models.Post": {
+            "type": "object",
+            "properties": {
+                "body": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.PostPrimaryKey": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.SignUp": {
+            "type": "object",
+            "properties": {
+                "bio": {
+                    "type": "string"
+                },
+                "media_url": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "user_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.UpdatePost": {
+            "type": "object",
+            "properties": {
+                "body": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.UpdateUser": {
+            "type": "object",
+            "properties": {
+                "bio": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "media_url": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "user_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.User": {
+            "type": "object",
+            "properties": {
+                "bio": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "media_url": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "user_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.UserPrimaryKey": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
